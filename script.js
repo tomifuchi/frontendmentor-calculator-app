@@ -1,49 +1,139 @@
-//Wiring event listener to the display and shit
+//Connecting to the numeric_display and shit
+const numeric_display = document.querySelector('[data-numeric-display]');
+const operator_display = document.querySelector('[data-operator]');
 
 //Functions
 function writeToDisplay(txt, cat= false){
-    const display = document.querySelector('[data-display]');
     if(cat) 
-        display.textContent = display.textContent.concat(txt);
+        numeric_display.textContent = numeric_display.textContent.concat(txt);
     else 
-        display.textContent = txt;
+        numeric_display.textContent = txt;
+}
 
+function writeToOperatorDisplay(txt){
+    operator_display.textContent = txt;
 }
 
 function isMaxLengthDisplay(){
-    const display = document.querySelector('[data-display]');
-    return display.textContent.length > 12;
+    return false;
+    //return numeric_display.textContent.length > 12;
 }
 
 function removeNumDisplay(){
-    const display = document.querySelector('[data-display]');
-    if(display.textContent.length > 0)
-    display.textContent = display.textContent.slice(0,(display.textContent.length - 1));
+    if(numeric_display.textContent.length > 0)
+    numeric_display.textContent = numeric_display.textContent.slice(0,(numeric_display.textContent.length - 1));
+}
+
+function validDecimal(){
+    return (numeric_display.textContent.indexOf('.') == -1);
+}
+
+function resetVar() {
+    first_calculation = true;
+    first_operand = 0;
+    second_operand = 0;
+    operator = '';
+    state = FOPERAND;
 }
 
 //Keys entered via keyboard input
 const valid_keys = [...document.querySelectorAll('button[data-key]')].map(key => {return key.dataset.key});
+valid_keys.push('Enter'); //This is valid as equal sign
+const operator_keys = [...document.querySelectorAll('button[data-operator-key]')].map(key => {return key.dataset.key});
+operator_keys.push('Enter');
+
+//STATE
+const FOPERAND = 0;
+const OPERATOR = 1;
+const SOPERAND = 2;
+
+let state = FOPERAND;
+
+//Variables
+let first_calculation = true;
+let first_operand = 0;
+let second_operand = 0;
+let operator = '';
 
 window.addEventListener('keydown', (event) => {
     //Reset the / key on browser to not search shit and 
     //backspace not to go back previous site.
     if(event.key == '/' || event.key == 'Backspace'){
         event.preventDefault();
-     }
+    } 
+    console.log(event.key);
+
     if(valid_keys.indexOf(event.key) != -1){
         // the ` key is considered AC on the calculator
         if(event.key == '`'){
+            resetVar();
             writeToDisplay('');
+            writeToOperatorDisplay('');
         }
         else if(event.key == 'Backspace'){
             removeNumDisplay();
-        } else {
-            //Query the key
-            const key_pressed = document.querySelector(`button[data-key="${event.key}"]`);
+        }
+        //Operator key
+        else if(operator_keys.indexOf(event.key) != -1) {
 
+            if(state == FOPERAND){
+                first_operand = Number(numeric_display.textContent);
+
+                state = OPERATOR; //Waiting for the second number
+                operator = event.key; //Capture the current operation
+            } else if (state == SOPERAND){
+                let equal_sign = false;
+                if(event.key == '='){
+                    equal_sign = true;
+                } else {
+                    operator = event.key; //Capture the current operation
+                }
+
+                if(numeric_display.textContent != ''){
+                    second_operand = Number(numeric_display.textContent);
+                    switch(operator){
+                        case '+':
+                            first_operand += second_operand;
+                            break;
+                        case '-':
+                            first_operand -= second_operand;
+                            break;
+                        case '*':
+                            first_operand *= second_operand;
+                            break;
+                        case '/':
+                            first_operand /= second_operand;
+                            break;
+                        }
+                }
+                if(equal_sign) {
+                    operator = '=';
+                    state = FOPERAND;
+                } else {
+                    state = OPERATOR;
+                }
+            } else {
+                operator = event.key; //Capture the current operation
+            }
+            writeToDisplay(first_operand.toString());
+            writeToOperatorDisplay(operator);
+        }
+        //Number key
+        else{
             if(!isMaxLengthDisplay()){
-                //Display the key
-                writeToDisplay(event.key,true);
+                if(state == OPERATOR){
+                    if(state == OPERATOR)
+                        state = SOPERAND;
+                    writeToDisplay('');
+                }
+
+                if(event.key == '.'){
+                    if(validDecimal())
+                        writeToDisplay(event.key,true);
+                } else {
+                   //display the keys
+                    writeToDisplay(event.key,true);
+                }
             }
         }
     }
@@ -59,8 +149,3 @@ cal_keys.forEach(key => {
         else if(!isMaxLengthDisplay()) {writeToDisplay(key.textContent, true)};
     })
 });
-
-//Calculation
-let current = 0; //current number
-let operand; //The number used to apply operator to.
-let operator;
