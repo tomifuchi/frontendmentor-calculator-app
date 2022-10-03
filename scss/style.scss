@@ -1,130 +1,79 @@
-*::before, *::after {
-    box-sizing: border-box;
+@import '_base';
+@import '_theme';
+
+
+//Main styling without theme
+//Body
+.container {
+    font-family: $font-family-spartan, $font-family-fallback;
+    font-size: $font-size;
+    font-weight: $font-weight;
+
+    min-height: 100vh;
+
+    @include flex($align: center, $justify: center);
 }
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
-//General mixin
-@mixin flex($display: flex, $direction: row, $wrap: nowrap, $justify: normal, $align: normal) {
-    display: $display;
-    flex-direction: $direction;
-    flex-wrap: $wrap; 
-    justify-content: $justify;
-    align-items: $align;
-}
-
-@mixin grid($display: grid, $column: none, $row: none){
-    display: $display;
-    grid-template-columns: $column;
-    grid-template-rows: $row;
-}
-
-//Styling guide
-//Layout
-
-//The designs were created to the following widths:
-
-$mobile-width: 375px;
-$desktop-width: 1440px;
-
-//Colors
-
-//Theme 1
-
-//Backgrounds
-
-$color-bg-main-theme1-blue: hsl(222, 26%, 31%);
-$color-bg-tg-kp-theme1-blue: hsl(223, 31%, 20%);
-$color-bg-screen-theme1-blue: hsl(224, 36%, 15%);
-
-//Keys
-
-$color-key-bg-theme1-blue: hsl(225, 21%, 49%);
-$color-key-shadow-theme1-blue: hsl(224, 28%, 35%);
-
-$color-key-tg-bg-theme1-red: hsl(6, 63%, 50%);
-$color-key-shadow-theme1-red: hsl(6, 70%, 34%);
-
-$color-key-bg-theme1-orange: hsl(30, 25%, 89%);
-$color-key-shadow-theme1-orange: hsl(28, 16%, 65%);
-
-//Text
-
-$color-text-theme1-blue: hsl(221, 14%, 31%);
-$color-text-theme1-white: hsl(0, 0, 100%);
-
-/*
-### Theme 2
-
-#### Backgrounds
-
-- Light gray (main background): hsl(0, 0%, 90%)
-- Grayish red (toggle background, keypad background): hsl(0, 5%, 81%)
-- Very light gray (screen background): hsl(0, 0%, 93%)
-
-#### Keys
-
-- Dark moderate cyan (key background): hsl(185, 42%, 37%)
-- Very dark cyan (key shadow): hsl(185, 58%, 25%)
-
-- Orange (key background, toggle): hsl(25, 98%, 40%)
-- Dark orange (key shadow): hsl(25, 99%, 27%)
-
-- Light grayish yellow (key background): hsl(45, 7%, 89%)
-- Dark grayish orange (key shadow): hsl(35, 11%, 61%)
-
-#### Text
-
-- Very dark grayish yellow: hsl(60, 10%, 19%)
-- White (text): hsl(0, 0, 100%)
-
-### Theme 3
-
-#### Backgrounds
-
-- Very dark violet (main background): hsl(268, 75%, 9%)
-- Very dark violet (toggle background, keypad background, screen background): hsl(268, 71%, 12%)
-
-#### Keys
-
-- Dark violet (key background): hsl(281, 89%, 26%)
-- Vivid magenta (key shadow): hsl(285, 91%, 52%)
-
-- Pure cyan (key background, toggle): hsl(176, 100%, 44%)
-- Soft cyan (key shadow): hsl(177, 92%, 70%)
-
-- Very dark violet (key background): hsl(268, 47%, 21%)
-- Dark magenta (key shadow): hsl(290, 70%, 36%)
-
-#### Text
-
-- Light yellow: hsl(52, 100%, 62%)
-- Very dark blue: hsl(198, 20%, 13%)
-- White (text): hsl(0, 0, 100%)
-
-## Typography
-
-### Body Copy
-
-- Font size (numbers): 32px
-
-### Font
-
-- Family: [League Spartan](https://fonts.google.com/specimen/League+Spartan)
-- Weights: 700
-*/
-
 
 //Calculator
 .calculator {
-    border: 1px solid #000;
-    max-width: 700px;
-    margin: 0 auto;
+    max-width: 475px;
+    width: 100%;
+
+    @include flex($direction: column);
+    gap: 30px;
 }
 
-h3 {
-    @include flex($justify: flex-end);
+.control-panel {
+    @include grid($column: repeat(4, 1fr), $row: repeat(5, 1fr));
+
+    padding: 30px;
+    gap: 20px;
+    border-radius: 10px;
+
+    //For the last two button
+    button[data-key="`"], button[data-key="="]{
+        grid-column: span 2;
+    }
+
+    button {
+        padding: 10px;
+        border-radius: 10px;
+
+        font-size: $font-size;
+        font-weight: 900;
+        font-family: $font-family-spartan, $font-family-fallback;
+
+        cursor: pointer;
+    }
+
+    button:hover {
+       border: none;
+    }
+}
+
+//The display
+.display {
+    @include flex($direction: column);
+    border-radius: 10px;
+    padding: 30px;
+
+
+    .sub-display {
+        align-self: flex-end;
+    }
+
+    .main-display{
+        @include flex($direction: row-reverse, $justify: flex-start);
+        gap: 10px;
+    }
+}
+//The theme mixing
+header{
+    @include flex($justify: space-between);
+}
+
+@media (max-width: 475px){
+    .container{
+        padding: 0 7px;
+    }
 }

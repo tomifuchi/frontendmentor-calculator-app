@@ -1,0 +1,230 @@
+//Theme, just toggle using radio with js
+//Now let's just do it simple with mixin, later iteration will map
+@mixin theme(
+    $theme-name,
+    //Backgrounds
+    $color-bg-body,
+    $color-bg-tg-kp,
+    $color-bg-display,
+    //Keys
+    //Ac and delete
+    $color-key-bg-ac-back,
+    $color-key-shadow-ac-back,
+    //Num key
+    $color-key-bg,
+    $color-key-shadow-bg,
+    //Equal
+    $color-key-equal-bg,
+    $color-key-shadow-equal-bg,
+    
+    //Texts
+    $color-text-op,
+    $color-text-num
+){
+    //Put this to body
+    .#{$theme-name} {
+        .container {
+            background-color: $color-bg-body;
+        }
+
+        .control-panel {
+            background-color: $color-bg-tg-kp;
+
+
+
+            button[data-key="`"], button[data-key="Backspace"]{
+                background-color: $color-key-bg-ac-back;
+                border: 1px solid $color-key-bg-ac-back;
+                box-shadow: 0 3px $color-key-shadow-ac-back;
+            }
+
+            button[data-key="`"]:hover, button[data-key="Backspace"]:hover{
+                background-color: lighten($color-key-bg-ac-back, 20%);
+            }
+
+            button[data-key="="]{
+                background-color: $color-key-equal-bg;
+                border: 1px solid $color-key-equal-bg;
+                box-shadow: 0 3px $color-key-shadow-equal-bg;
+            }
+            button[data-key="="]:hover{
+                background-color: lighten($color-key-equal-bg, 20%);
+            }
+
+            button {
+                color: $color-text-num;
+
+                background-color: $color-key-bg;
+                border: 1px solid $color-key-bg;
+                box-shadow: 0 3px $color-key-shadow-bg;
+            }
+
+            button[data-key="`"], 
+            button[data-key="Backspace"],
+            button[data-key="="] {
+                color: $color-text-op;
+            }
+            button:hover {
+                //Solution source:
+                //https://stackoverflow.com/questions/16178382/css-lighten-an-element-on-hover
+                //box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.7);
+ 
+                background-color: lighten($color-key-shadow-bg, 40%);
+            }
+        }
+
+        //The display
+        .display {
+            background-color: $color-bg-display;
+
+            h3, h5 {
+                color: $color-text-op;
+            }
+        }
+
+        header {
+            color: $color-text-op;
+        }
+
+        @if ($theme-name == theme-2) {
+            .control-panel {
+               button {
+                   color: $color-text-op;
+               }
+
+               button[data-key="`"], 
+               button[data-key="Backspace"],
+               button[data-key="="] {
+                   color: $color-text-num;
+               }
+            }
+        }
+
+        @if ($theme-name == theme-3) {
+            .control-panel {
+               button {
+                   color: $color-text-op;
+               }
+
+               button[data-key="="]{
+                   color: $color-text-num;
+               }
+
+               button[data-key="`"], 
+               button[data-key="Backspace"]{
+                   color: hsl(0, 0, 100%); 
+               }
+            }
+        }
+    }
+}
+
+//Theme 1 colors
+$color-bg-body-theme1: hsl(222, 26%, 31%);
+$color-bg-tg-kp-theme1: hsl(223, 31%, 20%);
+$color-bg-display-theme1: hsl(224, 36%, 15%);
+
+//Keys
+
+$color-key-bg-ac-back-theme1: hsl(225, 21%, 49%);
+$color-key-shadow-ac-back-theme1: hsl(224, 28%, 35%);
+
+$color-key-bg-equal-theme1: hsl(6, 63%, 50%);
+$color-key-shadow-equal-theme1: hsl(6, 70%, 34%);
+
+$color-key-bg-theme1: hsl(30, 25%, 89%);
+$color-key-shadow-theme1: hsl(28, 16%, 65%);
+
+//Text
+
+$color-text1-theme1: hsl(0, 0, 100%);
+$color-text2-theme1: hsl(221, 14%, 31%);
+
+@include theme(
+    theme-1,
+    $color-bg-body-theme1,
+    $color-bg-tg-kp-theme1, 
+    $color-bg-display-theme1,
+    $color-key-bg-ac-back-theme1, 
+    $color-key-shadow-ac-back-theme1,
+    $color-key-bg-theme1, 
+    $color-key-shadow-theme1, 
+    $color-key-bg-equal-theme1,
+    $color-key-shadow-equal-theme1, 
+    $color-text1-theme1,
+    $color-text2-theme1
+);
+//----------------------------------------------------------
+
+//Theme 2 colors
+$color-bg-body-theme2: hsl(0, 0%, 90%);
+$color-bg-tg-kp-theme2: hsl(0, 5%, 81%);
+$color-bg-display-theme2: hsl(0, 0%, 93%);
+
+//Keys
+
+$color-key-bg-ac-back-theme2: hsl(185, 42%, 37%);
+$color-key-shadow-ac-back-theme2: hsl(185, 58%, 25%);
+
+$color-key-bg-equal-theme2: hsl(25, 98%, 40%);
+$color-key-shadow-equal-theme2: hsl(25, 99%, 27%);
+
+$color-key-bg-theme2: hsl(45, 7%, 89%);
+$color-key-shadow-theme2: hsl(35, 11%, 61%);
+
+//Text
+
+$color-text1-theme2:hsl(60, 10%, 19%);
+$color-text2-theme2:hsl(0, 0, 100%);
+
+@include theme(
+    theme-2,
+    $color-bg-body-theme2,
+    $color-bg-tg-kp-theme2, 
+    $color-bg-display-theme2,
+    $color-key-bg-ac-back-theme2, 
+    $color-key-shadow-ac-back-theme2,
+    $color-key-bg-theme2, 
+    $color-key-shadow-theme2, 
+    $color-key-bg-equal-theme2,
+    $color-key-shadow-equal-theme2, 
+    $color-text1-theme2,
+    $color-text2-theme2
+);
+
+//----------------------------------------------------------
+//Theme 3 colors
+$color-bg-body-theme3: hsl(268, 75%, 9%);
+$color-bg-tg-kp-theme3: hsl(268, 71%, 12%);
+$color-bg-display-theme3: hsl(0, 5%, 81%);
+
+//Keys
+
+$color-key-bg-ac-back-theme3: hsl(281, 89%, 26%);
+$color-key-shadow-ac-back-theme3: hsl(285, 91%, 52%);
+
+$color-key-bg-equal-theme3: hsl(176, 100%, 44%);
+$color-key-shadow-equal-theme3: hsl(177, 92%, 70%);
+
+$color-key-bg-theme3: hsl(268, 47%, 21%);
+$color-key-shadow-theme3: hsl(290, 70%, 36%);
+
+//Text
+
+$color-text1-theme3:hsl(52, 100%, 62%);
+$color-text2-theme3:hsl(198, 20%, 13%);
+
+@include theme(
+    theme-3,
+    $color-bg-body-theme3,
+    $color-bg-tg-kp-theme3, 
+    $color-bg-tg-kp-theme3,
+    $color-key-bg-ac-back-theme3, 
+    $color-key-shadow-ac-back-theme3,
+    $color-key-bg-theme3, 
+    $color-key-shadow-theme3, 
+    $color-key-bg-equal-theme3,
+    $color-key-shadow-equal-theme3, 
+    $color-text1-theme3,
+    $color-text2-theme3
+);

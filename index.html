@@ -6,6 +6,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=League+Spartan">
   
   <title>Frontend Mentor | Calculator app</title>
 
@@ -15,40 +16,44 @@
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
 </head>
-<body>
+<body class="theme-1">
+  <div class="container">
   <div class="calculator">
     <header>
       <div class="tittle">calc</div>
       <div class="theme-slider">theme slider</div>
     </header>
-    <h3 data-operator></h3>
-    <h3 data-numeric-display></h3>
+    <div class="display">
+      <div class="sub-display">
+      <h5 data-state></h5>
+      </div>
+      <div class="main-display">
+      <h3 data-operator></h3>
+      <h3 data-numeric-display></h3>
+      </div>
+    </div>
     <div class="control-panel">
-      <button data-key="0">0</button>
-      <button data-key=".">.</button>
-      <button data-key="1">1</button>
-      <button data-key="2">2</button>
-      <button data-key="3">3</button>
-      <button data-key="4">4</button>
-      <button data-key="5">5</button>
-      <button data-key="6">6</button>
       <button data-key="7">7</button>
       <button data-key="8">8</button>
       <button data-key="9">9</button>
+      <button data-key="Backspace">DEL</button>
+      <button data-key="4">4</button>
+      <button data-key="5">5</button>
+      <button data-key="6">6</button>
       <button data-operator-key data-key="+">+</button>
+      <button data-key="1">1</button>
+      <button data-key="2">2</button>
+      <button data-key="3">3</button>
       <button data-operator-key data-key="-">-</button>
-      <button data-operator-key data-key="*">*</button>
+      <button data-key=".">.</button>
+      <button data-key="0">0</button>
       <button data-operator-key data-key="/">/</button>
+      <button data-operator-key data-key="*">*</button>
+      <button data-key="`">AC</button>
       <button data-operator-key data-key="=">=</button>
-      <button data-operator-key data-key="Enter">Enter</button>
-      <button data-key="`">ac</button>
-      <button data-key="Backspace"><-</button>
+      <button data-operator-key data-key="Enter" style="display: none;"></button>
     </div>
   </div>
-
-  <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
-    Coded by <a href="#">Your Name Here</a>.
   </div>
 </body>
 <script src="script.js" defer></script>

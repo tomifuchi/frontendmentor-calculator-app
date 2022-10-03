@@ -1,6 +1,7 @@
 //Connecting to the numeric_display and shit
 const numeric_display = document.querySelector('[data-numeric-display]');
 const operator_display = document.querySelector('[data-operator]');
+const state_display = document.querySelector('[data-state]');
 
 //Functions
 function writeToDisplay(txt, cat= false){
@@ -29,11 +30,26 @@ function validDecimal(){
 }
 
 function resetVar() {
-    first_calculation = true;
     first_operand = 0;
     second_operand = 0;
     operator = '';
     state = FOPERAND;
+}
+
+function writeToStateDsiplay(current_state){
+    let str = '';
+    switch(current_state){
+        case  0:
+            str = 'FOPERAND';
+            break;
+        case  1:
+            str = 'OPERATOR';
+            break;
+        case  2:
+            str = 'SOPERAND';
+            break;
+    }
+    state_display.textContent = str;
 }
 
 //Keys entered via keyboard input
@@ -50,20 +66,21 @@ const SOPERAND = 2;
 let state = FOPERAND;
 
 //Variables
-let first_calculation = true;
 let first_operand = 0;
 let second_operand = 0;
 let operator = '';
 
+resetVar();
+writeToStateDsiplay(state);
 window.addEventListener('keydown', (event) => {
     //Reset the / key on browser to not search shit and 
     //backspace not to go back previous site.
     if(event.key == '/' || event.key == 'Backspace'){
         event.preventDefault();
     } 
-    console.log(event.key);
 
     if(valid_keys.indexOf(event.key) != -1){
+
         // the ` key is considered AC on the calculator
         if(event.key == '`'){
             resetVar();
@@ -80,10 +97,14 @@ window.addEventListener('keydown', (event) => {
                 first_operand = Number(numeric_display.textContent);
 
                 state = OPERATOR; //Waiting for the second number
-                operator = event.key; //Capture the current operation
+                if(event.key == 'Enter') {
+                    operator = '=';
+                } else  {
+                    operator = event.key; //Capture the current operation
+                }
             } else if (state == SOPERAND){
                 let equal_sign = false;
-                if(event.key == '='){
+                if(event.key == '=' || event.key ==  'Enter'){
                     equal_sign = true;
                 } else {
                     operator = event.key; //Capture the current operation
@@ -113,8 +134,12 @@ window.addEventListener('keydown', (event) => {
                     state = OPERATOR;
                 }
             } else {
-                operator = event.key; //Capture the current operation
+                if(event.key == 'Enter') 
+                    operator = '=';
+                else
+                    operator = event.key;
             }
+
             writeToDisplay(first_operand.toString());
             writeToOperatorDisplay(operator);
         }
@@ -136,6 +161,7 @@ window.addEventListener('keydown', (event) => {
                 }
             }
         }
+        writeToStateDsiplay(state);
     }
 });
 
@@ -144,8 +170,6 @@ window.addEventListener('keydown', (event) => {
 const cal_keys = document.querySelectorAll('button[data-key]');
 cal_keys.forEach(key => {
     key.addEventListener('click', () => {
-        if (key.textContent == 'ac') writeToDisplay('');
-        else if(key.textContent == '<-') removeNumDisplay();
-        else if(!isMaxLengthDisplay()) {writeToDisplay(key.textContent, true)};
+        window.dispatchEvent(new KeyboardEvent('keydown', {'key': key.dataset.key} ));
     })
 });
