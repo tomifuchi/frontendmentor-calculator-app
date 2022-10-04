@@ -173,3 +173,19 @@ cal_keys.forEach(key => {
         window.dispatchEvent(new KeyboardEvent('keydown', {'key': key.dataset.key} ));
     })
 });
+
+//The fucking theme selector
+//Initial set up
+document.body.classList.toggle(document.querySelector('input[type="radio"]:checked').value);   
+
+const themes = document.querySelectorAll('input[type=radio]');
+themes.forEach( theme => {
+    theme.addEventListener('change', () => {
+        if(theme.checked){
+            //Toggle what's ever in there
+            document.body.classList.toggle(document.body.classList[0]);
+            document.body.classList.toggle(theme.value);   
+            console.log(document.body.classList);
+        }
+    });
+});

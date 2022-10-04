@@ -16,12 +16,24 @@
     .attribution a { color: hsl(228, 45%, 44%); }
   </style>
 </head>
-<body class="theme-1">
+<body>
   <div class="container">
   <div class="calculator">
     <header>
       <div class="tittle">calc</div>
-      <div class="theme-slider">theme slider</div>
+      <div class="theme-slider">
+        <h5 id="theme-tittle">theme</h5>
+        <h5 id="theme-name"><span>1</span> <span>2</span> <span>3</span></h5>
+        <div class="slider">
+        <input type="radio" id="theme-1" name="current-theme" value="theme-1" checked>
+        <label for="theme-1">1</label>
+        <input type="radio" id="theme-2" name="current-theme" value="theme-2">
+        <label for="theme-2">2</label>
+        <input type="radio" id="theme-3" name="current-theme" value="theme-3">
+        <label for="theme-3">3</label>
+        <div class="indicator"></div>
+        </div>
+      </div>
     </header>
     <div class="display">
       <div class="sub-display">

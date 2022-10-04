@@ -61,6 +61,16 @@ h3 {
 .theme-1 header {
   color: hsl(0deg, 0%, 100%);
 }
+.theme-1 .slider {
+  background-color: hsl(223deg, 31%, 20%);
+}
+.theme-1 .slider .indicator {
+  box-shadow: 0px 2px hsl(6deg, 70%, 34%);
+  background-color: hsl(6deg, 63%, 50%);
+}
+.theme-1 .slider .indicator:hover {
+  background-color: #dc4838;
+}
 
 .theme-2 .container {
   background-color: hsl(0deg, 0%, 90%);
@@ -106,6 +116,16 @@ h3 {
 }
 .theme-2 header {
   color: hsl(60deg, 10%, 19%);
+}
+.theme-2 .slider {
+  background-color: hsl(0deg, 5%, 81%);
+}
+.theme-2 .slider .indicator {
+  box-shadow: 0px 2px hsl(25deg, 99%, 27%);
+  background-color: hsl(25deg, 98%, 40%);
+}
+.theme-2 .slider .indicator:hover {
+  background-color: #ef6401;
 }
 .theme-2 .control-panel button {
   color: hsl(60deg, 10%, 19%);
@@ -160,6 +180,16 @@ h3 {
 }
 .theme-3 header {
   color: hsl(52deg, 100%, 62%);
+}
+.theme-3 .slider {
+  background-color: hsl(268deg, 71%, 12%);
+}
+.theme-3 .slider .indicator {
+  box-shadow: 0px 2px hsl(177deg, 92%, 70%);
+  background-color: hsl(176deg, 100%, 44%);
+}
+.theme-3 .slider .indicator:hover {
+  background-color: #cefdfb;
 }
 .theme-3 .control-panel button {
   color: hsl(52deg, 100%, 62%);
@@ -239,18 +269,73 @@ h3 {
   gap: 10px;
 }
 
+@media (max-width: 475px) {
+  .container {
+    padding: 0 7px;
+  }
+}
 header {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  align-items: normal;
+  align-items: flex-end;
+  gap: 10px;
 }
 
-@media (max-width: 475px) {
-  .container {
-    padding: 0 7px;
-  }
+.theme-slider {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.theme-slider #theme-tittle {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+.theme-slider #theme-name {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  font-size: 0.7em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.theme-slider .slider {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.slider {
+  border-radius: 30px;
+  padding: 0 4px;
+  position: relative;
+}
+.slider label {
+  display: none;
+}
+.slider input[type=radio] {
+  opacity: 0;
+}
+.slider .indicator {
+  height: 21px;
+  width: 21px;
+  border-radius: 30px;
+  border: none;
+  position: absolute;
+  top: 12%;
+  left: 5%;
+  transition: 0.1s;
+  transform: translateX(0);
+}
+.slider input#theme-2:checked ~ .indicator {
+  transition: 0.1s;
+  transform: translateX(1em);
+}
+.slider input#theme-3:checked ~ .indicator {
+  transition: 0.1s;
+  transform: translateX(2.1em);
 }
 
 /*# sourceMappingURL=style.css.map */

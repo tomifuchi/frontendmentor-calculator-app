@@ -67,13 +67,74 @@
         gap: 10px;
     }
 }
-//The theme mixing
-header{
-    @include flex($justify: space-between);
-}
 
 @media (max-width: 475px){
     .container{
         padding: 0 7px;
     }
+}
+
+//Header
+//The theme mixing
+header{
+    @include flex($align: flex-end, $justify: space-between);
+    gap: 10px;
+}
+
+.theme-slider {
+    @include grid($column: 1fr 1fr,$row: 1fr 1fr);
+
+    #theme-tittle {
+        grid-column: 1/2;
+        grid-row: 2/3;
+    }
+    #theme-name {
+        grid-column: 2/3;
+        grid-row: 1/2;
+        font-size: 0.7em;
+
+        @include flex($align: flex-end, $justify: space-around);
+    }
+    .slider{
+        grid-column: 2/3;
+        grid-row: 2/3;
+    }
+}
+
+//The theme slider 
+.slider{
+    border-radius: 30px;
+    padding: 0 4px;
+    position: relative;
+
+    label {
+        display: none;
+    }
+
+    input[type="radio"] {
+        opacity: 0;
+    }
+
+    .indicator {
+        height: 21px;
+        width: 21px;
+        border-radius: 30px;
+        border: none;
+        position: absolute;
+        top: 12%;
+        left: 5%;
+
+        transition: 0.1s;
+        transform: translateX(0);
+    }
+
+    input#theme-2:checked ~ .indicator {
+        transition: 0.1s;
+        transform: translateX(1em);
+    }
+    input#theme-3:checked ~ .indicator {
+        transition: 0.1s;
+        transform: translateX(2.1em);
+    }
+
 }

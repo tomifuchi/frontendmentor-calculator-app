@@ -86,6 +86,19 @@
             color: $color-text-op;
         }
 
+        //Slider 
+        .slider {
+            background-color: $color-bg-tg-kp; 
+            .indicator {
+                box-shadow: 0px 2px $color-key-shadow-equal-bg;
+                background-color: $color-key-equal-bg;
+            }
+
+            .indicator:hover {
+                background-color: lighten($color-key-shadow-equal-bg, 20%);
+            }
+        }
+
         @if ($theme-name == theme-2) {
             .control-panel {
                button {
@@ -116,6 +129,8 @@
                }
             }
         }
+
+        //The slider 
     }
 }
 
