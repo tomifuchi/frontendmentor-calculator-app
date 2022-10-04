@@ -16,8 +16,7 @@ function writeToOperatorDisplay(txt){
 }
 
 function isMaxLengthDisplay(){
-    return false;
-    //return numeric_display.textContent.length > 12;
+    return numeric_display.textContent.length > 12;
 }
 
 function removeNumDisplay(){
@@ -140,6 +139,7 @@ window.addEventListener('keydown', (event) => {
                     operator = event.key;
             }
 
+            first_operand = Math.round(first_operand * 1000) / 1000;
             writeToDisplay(first_operand.toString());
             writeToOperatorDisplay(operator);
         }

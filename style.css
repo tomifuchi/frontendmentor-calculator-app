@@ -335,7 +335,7 @@ header {
 }
 .slider input#theme-3:checked ~ .indicator {
   transition: 0.1s;
-  transform: translateX(2.1em);
+  transform: translateX(2em);
 }
 
 /*# sourceMappingURL=style.css.map */
